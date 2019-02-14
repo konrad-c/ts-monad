@@ -38,14 +38,3 @@ const chainEither:number = right
         right => right.length,
         left => left + 2
     );
-
-// Array Extension Examples
-const data = [1, 2, 3, 4, 5, 6];
-const promises = data
-    .parallel(num => num + 1)  // parallel(...) will perform the function on each item in parallel by converting each item to a Promise
-    .mapAsync((value:number) => Promise.resolve(value + 5))  // mapAsync(...) will then(...) each of the items in the list with the provided map function
-    .mapAsync(async num => num / 2)  // which makes it easy to add async arrow functions to map(...)
-    .delay(100)  // delay(...) tells each promise to wait for 100ms when they reach this point
-    .mapAsyncThrottle(2, async num => num.toString())  // mapAsyncThrottle(X, ...) will throttle the number of Promises running at any given time to X
-    .mapAsyncTimeLimit(3, 1000, async num => fetch(`${url}/${num}`))  // mapAsyncTimeLimit(X, Y, ...) will throttle the number of Promises running to a maximum of X promises every Y milliseconds 
-    .waitAll();  // waitAll(...) is an easier way to call Promise.all(...) when chaining functions.
